@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bicara.in</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#153B50;--teal:#36B8A5;--bg:#F2F5F7;--card:#fff;--ink:#153B50;--mut:#6B8190;--line:#E1E8ED;--soft:#E3F6F3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C2230;--card:#143345;--ink:#EAF2F6;--mut:#8DA6B4;--line:#23475B;--soft:#17433F;color-scheme:dark}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink)}
+#app{max-width:430px;height:100%;margin:auto;display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden}
+main{flex:1;overflow-y:auto;padding:20px 20px 24px}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+h1{font-size:26px;line-height:1.2;font-weight:800}h2{font-size:18px;font-weight:800}h3{font-size:15px;font-weight:700}
+p,.mut{color:var(--mut);font-size:14px;line-height:1.5}
+.card{background:var(--card);border-radius:22px;padding:18px;border:1px solid var(--line);margin-bottom:14px}
+.btn{width:100%;padding:16px;border-radius:16px;background:var(--teal);color:#06303A;font-weight:800;font-size:16px;display:block;text-align:center}
+.btn.alt{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn.navy{background:var(--navy);color:#fff}
+.row{display:flex;align-items:center;gap:12px}.sp{justify-content:space-between}
+.chip{padding:9px 14px;border-radius:99px;border:1.5px solid var(--line);font-size:13px;font-weight:700;background:var(--card)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.ico{width:46px;height:46px;border-radius:15px;background:var(--soft);color:var(--teal);display:grid;place-items:center;flex:none}
+svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav{display:flex;background:var(--card);border-top:1px solid var(--line);padding:8px 8px 10px}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:var(--mut);padding:6px}
+nav button.on{color:var(--teal)}
+.hero{background:var(--navy);color:#fff;border-radius:26px;padding:22px;margin-bottom:16px}
+.hero p{color:#B9D3DD}
+.bar{height:9px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--teal);border-radius:9px}
+.full{height:100%;display:flex;flex-direction:column;padding:28px 24px}
+.splash{background:var(--navy);color:#fff;align-items:center;justify-content:center;text-align:center;gap:14px}
+.logo{width:92px;height:92px;border-radius:30px;background:var(--teal);display:grid;place-items:center;color:var(--navy)}
+.logo svg{width:48px;height:48px}
+.brand{font-size:34px;font-weight:800}.brand b{color:var(--teal)}
+.dots{display:flex;gap:6px;justify-content:center;margin:18px 0}.dots i{width:8px;height:8px;border-radius:8px;background:var(--line)}.dots i.on{width:26px;background:var(--teal)}
+.art{flex:1;display:grid;place-items:center}
+.art div{width:210px;height:210px;border-radius:70px;background:var(--soft);color:var(--teal);display:grid;place-items:center}
+.art svg{width:96px;height:96px;stroke-width:1.5}
+input,textarea{width:100%;padding:15px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:15px;margin-bottom:12px}
+textarea{min-height:130px;resize:none}
+.tabs{display:flex;background:var(--line);border-radius:14px;padding:4px;margin:16px 0}
+.tabs button{flex:1;padding:10px;border-radius:11px;font-weight:700;color:var(--mut)}.tabs .on{background:var(--card);color:var(--ink)}
+.timer{font-size:56px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;margin:6px 0}
+.wave{display:flex;gap:4px;align-items:center;justify-content:center;height:64px}
+.wave i{width:5px;border-radius:5px;background:var(--teal);height:8px}
+.rec .wave i{animation:w .9s ease-in-out infinite}
+@keyframes w{50%{height:52px}}
+@media (prefers-reduced-motion:reduce){.rec .wave i{animation:none;height:30px}}
+.mic{width:84px;height:84px;border-radius:50%;background:var(--teal);color:var(--navy);display:grid;place-items:center;margin:8px auto}
+.mic svg{width:34px;height:34px}.mic.live{background:#E5484D;color:#fff}
+.ring{width:140px;height:140px;border-radius:50%;display:grid;place-items:center;margin:4px auto 14px}
+.ring div{width:108px;height:108px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:38px;font-weight:800}
+.q{font-size:20px;font-weight:800;line-height:1.35;margin:10px 0 16px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}.top button{width:40px;height:40px;border-radius:13px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center}
+.toast{position:absolute;left:20px;right:20px;bottom:90px;background:var(--navy);color:#fff;padding:13px 16px;border-radius:14px;font-size:14px;font-weight:700}
+.bub{padding:12px 14px;border-radius:18px;max-width:90%;font-size:14px;line-height:1.55;margin-bottom:10px;overflow-wrap:anywhere}
+.me{background:var(--navy);color:#fff;margin-left:auto;border-bottom-right-radius:6px}
+.ai{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.askbar{display:flex;gap:8px;padding:10px 14px 12px;background:var(--card);border-top:1px solid var(--line)}
+.askbar input{margin:0;flex:1}
+.askbar button{width:auto;padding:0 18px;border-radius:14px}
+.askbar button:disabled,.askbar input:disabled{opacity:.5}
+input[type=range]{padding:0;border:0;accent-color:var(--teal);height:32px;background:none}
+select{width:100%;padding:15px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:15px;margin:8px 0 14px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const I={
+mic:'<path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"/>',
+home:'<path d="M3 11l9-8 9 8M5 10v10h14V10"/>',
+play:'<path d="M5 4v16M5 4l14 8-14 8"/>',
+chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.2A8 8 0 1 1 21 12z"/>',
+brief:'<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
+back:'<path d="M15 5l-7 7 7 7"/>',
+stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',
+flame:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>',
+star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'};
+const ic=n=>`<svg viewBox="0 0 24 24">${I[n]}</svg>`;
+const topics=['Pentingnya literasi digital bagi generasi muda','Pengalaman organisasi yang mengubah saya','Mengapa disiplin waktu itu penting','Memperkenalkan diri di depan kelas','Perkenalan diri singkat untuk acara networking','Tiga hal yang membuat Anda unik','Kenalkan hobi Anda kepada orang yang belum tahu','Pentingnya mahasiswa aktif di luar kelas','Pidato singkat sebagai ketua panitia acara kampus','Cara belajar efektif di tengah banyak tugas','Presentasi hasil proyek kelompok Anda','Rencana karier Anda lima tahun ke depan','Mengapa soft skill sama pentingnya dengan nilai','Pengalaman gagal yang mengajarkan Anda sesuatu','Pitch ide usaha kecil dalam dua menit','Dampak media sosial pada cara kita berkomunikasi','Pentingnya mendengarkan dalam percakapan','Gotong royong di zaman modern','Menyikapi perbedaan pendapat dengan sehat','Manfaat dan risiko AI bagi pekerja','Keamanan data pribadi di dunia digital','Kerja jarak jauh dan produktivitas','Cara bangkit setelah gagal','Kebiasaan kecil yang mengubah hidup','Keberanian tumbuh dari latihan'];
+const CAT={'Perkenalan':[3,4,5,6],'Kampus':[1,7,8,9,10],'Karier':[11,12,13,14],'Sosial':[15,16,17,18],'Teknologi':[0,19,20,21],'Motivasi':[2,22,23,24]};
+const catOf=i=>Object.keys(CAT).find(c=>CAT[c].includes(i));
+const itv={'Fresh graduate':['Ceritakan tentang diri Anda secara singkat.','Mengapa kami harus memilih Anda?','Apa kelebihan dan kekurangan terbesar Anda?'],
+'Magang':['Mengapa Anda tertarik magang di sini?','Apa yang ingin Anda pelajari selama magang?','Bagaimana Anda membagi waktu kuliah dan magang?'],
+'Organisasi':['Apa peran Anda di organisasi terakhir?','Ceritakan konflik tim yang pernah Anda hadapi.','Apa capaian yang paling Anda banggakan?'],
+'Pengalaman kerja':['Apa tanggung jawab utama Anda di pekerjaan terakhir?','Ceritakan tantangan terbesar dan cara Anda mengatasinya.','Mengapa Anda ingin pindah kerja?']};
+itv['Fresh graduate'].push('Apa rencana karier Anda lima tahun ke depan?','Bagaimana Anda menghadapi tekanan atau tenggat ketat?');
+itv['Magang'].push('Ceritakan proyek kampus yang paling Anda banggakan.','Bagaimana Anda menerima kritik dari pembimbing?');
+itv['Organisasi'].push('Bagaimana Anda memotivasi anggota tim yang kurang aktif?','Apa yang Anda pelajari dari kegagalan sebuah acara?');
+itv['Pengalaman kerja'].push('Bagaimana Anda menangani rekan kerja yang sulit diajak bekerja sama?','Apa pencapaian terukur Anda di pekerjaan terakhir?');
+itv['Perilaku (STAR)']=['Ceritakan saat Anda memimpin tanpa jabatan resmi.','Ceritakan saat Anda gagal mencapai target.','Ceritakan konflik dengan rekan dan cara Anda menyelesaikannya.','Ceritakan saat Anda harus belajar hal baru dengan cepat.','Ceritakan saat Anda mengambil inisiatif tanpa diminta.'];
+itv['English interview']=['Tell me about yourself.','Why do you want to work here?','What are your strengths and weaknesses?','Describe a challenge you overcame.','Where do you see yourself in five years?'];
+const ob=[['mic','Latih suara Anda','Berlatih pidato dan presentasi kapan saja, dengan pengatur waktu dan rekaman.'],
+['brief','Siap menghadapi HRD','Simulasi wawancara kerja dengan pertanyaan yang sering muncul.'],
+['chart','Lihat perkembangan','Skor, masukan, dan riwayat latihan membantu Anda naik level tiap hari.']];
+const D={
+'Intonasi':{i:'chart',d:'Naik turun nada membuat pesan terasa hidup dan mudah diikuti.',lbl:'Kalimat',steps:['Baca kalimat sebanyak tiga kali.','Naikkan nada pada kata kunci, turunkan di akhir pernyataan.','Ulangi dengan suasana berbeda: antusias, tenang, tegas.'],txt:['Hari ini saya ingin membagikan satu ide yang mengubah cara saya belajar.','Apakah kita benar-benar siap menghadapi perubahan ini?','Kami tidak menyerah, dan hasilnya terbayar.'],tip:'Jika rekaman Anda terdengar lurus, beri satu penekanan jelas pada satu kata di setiap kalimat.'},
+'Tempo':{i:'play',d:'Kecepatan bicara ideal sekitar 120 sampai 150 kata per menit.',lbl:'Paragraf',steps:['Baca paragraf dengan tempo lambat.','Baca lagi dengan tempo normal tanpa terburu-buru.','Beri jeda singkat di setiap tanda baca.'],txt:['Komunikasi yang baik bukan soal bicara cepat. Pendengar butuh waktu untuk menangkap ide Anda, jadi beri ruang di antara kalimat.','Saat gugup, tempo bicara cenderung naik. Sadari napas Anda, lalu turunkan kecepatan satu tingkat.'],tip:'Tandai garis miring di naskah pada tempat Anda ingin berhenti sebentar.'},
+'Artikulasi':{i:'chat',d:'Pengucapan yang jelas membuat setiap kata terdengar sampai barisan belakang.',lbl:'Kalimat',steps:['Buka mulut cukup lebar saat membaca.','Mulai lambat, lalu naikkan kecepatan bertahap.','Fokus pada huruf awal dan akhir kata.'],txt:['Pak Polisi pagi-pagi pergi ke pasar pakai payung.','Kuku kaki kakakku kuning kecokelatan.','Seekor ular sanca sedang sibuk menyusuri semak-semak.'],tip:'Latih kalimat yang paling sulit lebih sering, bukan semua kalimat sama banyak.'},
+'Improvisasi':{i:'star',d:'Berlatih menyusun jawaban spontan tanpa naskah.',lbl:'Tantangan',steps:['Baca tantangan, lalu berpikir 5 detik.','Susun dengan pola: poin, alasan, contoh, simpulan.','Bicara terus sampai waktu habis.'],txt:['Jelaskan benda di dekat Anda seolah-olah Anda menjualnya.','Ceritakan hari terbaik dalam hidup Anda.','Yakinkan teman agar mulai berolahraga pagi.','Apa satu hal yang ingin Anda ubah di kampus atau tempat kerja?'],tip:'Jika kehabisan ide, ulangi poin utama dengan contoh baru. Hening sejenak lebih baik daripada “eee” berulang.'},
+'Jeda dan napas':{i:'flame',d:'Napas teratur menenangkan suara dan memberi waktu berpikir.',lbl:'Teks',steps:['Tarik napas 4 hitungan lewat hidung.','Tahan 2 hitungan, buang perlahan 6 hitungan.','Baca teks, berhenti dan ambil napas di tanda garis miring.'],txt:['Selamat pagi semuanya. / Terima kasih sudah hadir. / Hari ini saya akan bicara tentang tiga hal.','Pertama, tujuan kita. / Kedua, tantangannya. / Ketiga, langkah berikutnya.'],tip:'Bernapaslah dari perut, bukan dada, dan biarkan bahu tetap turun.'},
+'Percaya diri':{i:'user',d:'Awal yang tenang membuat sisa pembicaraan jauh lebih mudah.',lbl:'Pembuka',steps:['Berdiri atau duduk tegak, bahu rileks.','Tatap satu titik di depan Anda.','Ucapkan pembuka dengan suara mantap, lalu lanjutkan.'],txt:['Selamat pagi, nama saya (sebut nama Anda), dan saya akan berbagi satu cerita singkat.','Terima kasih atas waktunya. Saya siap menjawab pertanyaan Anda.'],tip:'Hafalkan kalimat pembuka. Tiga puluh detik pertama menentukan rasa percaya diri Anda.'}};
+const A={'Kelancaran':['Tempo','Siapkan tiga poin utama sebelum bicara dan latih kalimat pembuka agar jeda panjang berkurang.'],'Artikulasi':['Artikulasi','Ucapkan akhir kata dengan jelas dan latih gabungan konsonan sulit dengan tempo lambat.'],'Intonasi':['Intonasi','Beri penekanan pada satu kata kunci per kalimat dan turunkan nada di akhir pernyataan.'],'Kepercayaan diri':['Percaya diri','Tarik napas sebelum mulai, tatap satu titik, dan buka dengan kalimat yang sudah dihafal.']};
+const WK=['Suara dan napas','Struktur dan spontanitas','Tempo, jeda, penekanan','Tampil di bawah tekanan','Uji akhir'];
+const wk=d=>d>28?5:Math.ceil(d/7);
+const PL=[['Napas dan baca nyaring','d','Jeda dan napas'],['Variasi nada','d','Intonasi'],['Ucapan yang jelas','d','Artikulasi'],['Dengar suara sendiri','s',3,1],['Awal yang tenang','d','Percaya diri'],['Perkenalan satu menit','s',4,1],['Hari ringan','r'],
+['Tiga poin utama','s',9,1],['Berpikir sambil bicara','d','Improvisasi'],['Ceritakan satu kegagalan','s',13,2],['Improvisasi lagi','d','Improvisasi'],['Pola poin, alasan, contoh','s',7,2],['Pitch usaha kecil','s',14,2],['Hari ringan','r'],
+['Mengatur kecepatan','d','Tempo'],['Jeda yang tegas','d','Jeda dan napas'],['Menekankan kata kunci','d','Intonasi'],['Opini dua menit','s',15,2],['Tempo di bawah tekanan','d','Tempo'],['Rencana karier tiga menit','s',11,3],['Hari ringan','r'],
+['Wawancara fresh graduate','i','Fresh graduate'],['Presentasi tiga menit','s',8,3],['Improvisasi cepat','d','Improvisasi'],['Wawancara STAR','i','Perilaku (STAR)'],['Pidato tiga menit','s',12,3],['Wawancara magang','i','Magang'],['Hari ringan','r'],
+['Latihan penutup','s',10,3],['Uji akhir','s',11,3]];
+const TPL={'PREP':{d:'Poin, alasan, contoh, lalu poin lagi. Cocok untuk opini dan jawaban wawancara.',f:['Poin utama','Alasan','Contoh nyata','Simpulan (ulangi poin)']},
+'Tiga poin':{d:'Pembuka, tiga poin, penutup. Mudah diingat saat gugup.',f:['Pembuka','Poin 1','Poin 2','Poin 3','Penutup']},
+'Masalah dan solusi':{d:'Cocok untuk pitch dan presentasi proyek.',f:['Masalah','Dampaknya','Solusi Anda','Ajakan bertindak']},
+'Cerita tiga babak':{d:'Cocok untuk pengalaman pribadi dan perkenalan diri.',f:['Awal: situasi','Tengah: tantangan','Akhir: pelajaran']}};
+let S={s:'splash',ob:0,ol:{tpl:'PREP',v:[]},plan:null,core:false,cur:{pre:5,post:5,w:0,note:''},t:{n:5,exp:-1},auth:'login',name:'Rina',tab:'home',topic:0,dur:2,left:120,rec:false,itype:'Fresh graduate',qi:0,mode:'teks',ans:[],res:null,toast:'',
+hist:[{t:'Pidato: Literasi digital',k:'Public speaking',sc:72,d:'Kemarin'},{t:'Wawancara fresh graduate',k:'Wawancara',sc:68,d:'3 hari lalu'},{t:'Presentasi proposal',k:'Public speaking',sc:61,d:'Minggu lalu'}]};
+let tm=null;
+const $=s=>document.querySelector(s);
+function go(s,o){clearInterval(tm);capKill();save();if(s=='result'&&S.fromPlan)S.core=true;Object.assign(S,s=='speak'?{useOl:false}:{},o||{},{s});if(['home','pick','eval','profile'].includes(s))S.tab=s;if(['home','pick','eval','profile','path'].includes(s))S.fromPlan=false;if(s!='path')S.cf=false;draw()}
+function toast(t){S.toast=t;draw();setTimeout(()=>{S.toast='';draw()},1800)}
+const fmt=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
+const avg=()=>Math.round(S.hist.reduce((a,b)=>a+b.sc,0)/S.hist.length);
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+
+function nav(){const t=[['home','Beranda','home'],['pick','Latihan','mic'],['eval','Evaluasi','chart'],['profile','Profil','user']];
+return `<nav>${t.map(x=>`<button class="${S.tab==x[0]?'on':''}" onclick="go('${x[0]}')">${ic(x[2])}${x[1]}</button>`).join('')}</nav>`}
+
+const V={
+splash(){setTimeout(()=>S.s=='splash'&&go('onboard'),1800);
+return `<div class="full splash"><div class="logo">${ic('mic')}</div><div class="brand">Bicara<b>.in</b></div><p style="color:#B9D3DD">Berani Bicara, Siap Berkarya.</p></div>`},
+onboard(){const o=ob[S.ob],last=S.ob==2;
+return `<div class="full"><div class="art"><div>${ic(o[0])}</div></div>
+<h1>${o[1]}</h1><p style="margin-top:10px">${o[2]}</p>
+<div class="dots">${ob.map((_,i)=>`<i class="${i==S.ob?'on':''}"></i>`).join('')}</div>
+<button class="btn" onclick="${last?"go('auth')":'S.ob++;draw()'}">${last?'Mulai sekarang':'Lanjut'}</button>
+<button class="btn alt" style="margin-top:10px;border:0" onclick="go('auth')">Lewati</button></div>`},
+auth(){const L=S.auth=='login';
+return `<div class="full"><div class="row" style="margin-bottom:22px"><div class="logo" style="width:46px;height:46px;border-radius:15px">${ic('mic')}</div><div class="brand" style="font-size:22px">Bicara<b>.in</b></div></div>
+<h1>${L?'Selamat datang kembali':'Buat akun baru'}</h1><p style="margin-top:6px">${L?'Masuk untuk melanjutkan latihan Anda.':'Daftar gratis dan mulai berlatih hari ini.'}</p>
+<div class="tabs"><button class="${L?'on':''}" onclick="S.auth='login';draw()">Masuk</button><button class="${L?'':'on'}" onclick="S.auth='reg';draw()">Daftar</button></div>
+${L?'':'<input id="nm" placeholder="Nama lengkap" autocomplete="name">'}
+<input placeholder="Email" type="email" autocomplete="email"><input placeholder="Kata sandi" type="password">
+<button class="btn" onclick="S.name=($('#nm')&&$('#nm').value.trim().split(' ')[0])||S.name;go('home')">${L?'Masuk':'Buat akun'}</button>
+<p style="text-align:center;margin-top:14px">Hanya ingin mencoba? <b style="color:var(--teal)" onclick="go('home')">Masuk sebagai tamu</b></p></div>`},
+home(){const d=['Pidato 2 menit: '+topics[1],'Jawab: '+itv['Fresh graduate'][0]];
+return `<main><div class="row sp"><div><p>Selamat pagi,</p><h1>Halo, ${S.name}</h1></div><div class="ico" style="border-radius:50%;font-weight:800">${S.name[0]}</div></div>
+<div class="hero" style="margin-top:18px"><p>Skor komunikasi rata-rata</p><div class="row sp" style="margin:6px 0 12px"><h1 style="font-size:44px">${avg()}</h1><div class="chip" style="background:var(--teal);border:0;color:#06303A">+6 minggu ini</div></div>
+<div class="bar" style="background:#2A5A73"><i style="width:${avg()}%"></i></div></div>
+${pathCard()}
+<div class="row" style="gap:12px;margin-bottom:14px"><button class="card" style="flex:1;margin:0;text-align:left" onclick="go('speak',{left:S.dur*60,rec:false})"><div class="ico" style="margin-bottom:10px">${ic('mic')}</div><h3>Public speaking</h3><p>Pidato dan presentasi</p></button>
+<button class="card" style="flex:1;margin:0;text-align:left" onclick="go('itv',{qi:0,ans:[]})"><div class="ico" style="margin-bottom:10px">${ic('brief')}</div><h3>Wawancara</h3><p>Simulasi HRD</p></button></div>
+<button class="card row" style="width:100%;text-align:left;background:var(--soft);border:0" onclick="go('ask',{chat:[],ctx:'',back:'home',rec:false})"><div class="ico" style="background:var(--teal);color:#06303A">${ic('chat')}</div><div style="flex:1"><h3>Tanya AI</h3><p>Tips dan trik menjawab pertanyaan wawancara</p></div>${ic('play')}</button>
+<h2 style="margin:18px 0 10px">Latihan harian</h2>
+${d.map((x,i)=>`<button class="card row" style="width:100%;text-align:left" onclick="${i?"go('itv',{qi:0,ans:[]})":"go('speak',{topic:1,cat:'',left:S.dur*60,rec:false})"}"><div class="ico">${ic(i?'chat':'flame')}</div><div style="flex:1"><h3>${x}</h3><p>${i?'3 menit':'Sekitar 5 menit'}</p></div>${ic('play')}</button>`).join('')}</main>${nav()}`},
+pick(){return `<main><h1>Pilih latihan</h1><p style="margin:6px 0 18px">Mulai dari yang paling Anda butuhkan hari ini.</p>${pathCard()}
+<div class="card"><div class="ico" style="margin-bottom:12px">${ic('mic')}</div><h2>Public speaking</h2><p style="margin:4px 0 12px">Pidato, presentasi, atau berbicara dengan topik pilihan. Ada timer dan rekaman.</p><button class="btn" onclick="go('speak',{left:S.dur*60,rec:false})">Mulai berlatih</button></div>
+<div class="card"><div class="ico" style="margin-bottom:12px">${ic('brief')}</div><h2>Simulasi wawancara</h2><p style="margin:4px 0 12px">Jawab pertanyaan HRD lewat suara atau teks, lalu terima saran perbaikan.</p><button class="btn navy" onclick="go('itv',{qi:0,ans:[]})">Mulai simulasi</button></div>
+<div class="card"><div class="ico" style="margin-bottom:12px">${ic('chart')}</div><h2>Latihan dasar</h2><p style="margin:4px 0 12px">Intonasi, tempo, artikulasi, improvisasi, jeda dan napas, serta percaya diri. Satu sesi hanya 30 detik.</p><button class="btn alt" onclick="go('drills')">Pilih latihan dasar</button></div>
+<div class="card"><div class="ico" style="margin-bottom:12px">${ic('chat')}</div><h2>Tanya AI</h2><p style="margin:4px 0 12px">Tanyakan tips dan trik menjawab pertanyaan wawancara, lengkap dengan contoh jawaban.</p><button class="btn alt" onclick="go('ask',{chat:[],ctx:'',back:'pick',rec:false})">Mulai bertanya</button></div>
+<div class="card"><div class="ico" style="margin-bottom:12px">${ic('star')}</div><h2>Kerangka bicara</h2><p style="margin:4px 0 12px">Susun poin dengan pola PREP, tiga poin, atau cerita, lalu latih dengan kartu catatan.</p><button class="btn alt" onclick="go('outline',{olBack:'pick'})">Buat kerangka</button></div></main>${nav()}`},
+speak(){const run=S.rec;
+return `<main><div class="top"><button aria-label="Kembali" onclick="go(S.fromPlan?'day':'pick')">${ic('back')}</button><h2>Public speaking</h2></div>
+<div class="row sp"><h3>Topik</h3><button class="chip" onclick="S.topic=rnd(0,topics.length-1);S.cat='';draw()">Acak topik</button></div>
+<div style="display:flex;gap:8px;overflow-x:auto;margin:10px 0 12px;padding-bottom:4px">${Object.keys(CAT).map(c=>`<button class="chip ${(S.cat||catOf(S.topic))==c?'on':''}" style="flex:none" onclick="S.cat='${c}';draw()">${c}</button>`).join('')}</div>
+${CAT[S.cat||catOf(S.topic)].map(i=>`<button class="card" style="width:100%;text-align:left;margin-bottom:8px;padding:14px;${S.topic==i?'border-color:var(--teal);background:var(--soft)':''}" onclick="S.topic=${i};draw()"><h3 style="font-weight:600">${topics[i]}</h3></button>`).join('')}<div style="height:6px"></div>
+<div class="card"><p>Topik Anda</p><div class="q" style="margin-bottom:0">${topics[S.topic]}</div></div>
+${S.useOl&&S.ol?`<div class="card" style="background:var(--soft);border:0"><h3>Kartu catatan: ${S.ol.tpl}</h3>${TPL[S.ol.tpl].f.map((f,i)=>`<p style="color:var(--ink);margin-top:6px"><b>${f}:</b> ${esc(S.ol.v[i]||'...')}</p>`).join('')}</div>`:''}
+<h3>Durasi</h3><div class="chips">${[1,2,3,5].map(m=>`<button class="chip ${S.dur==m?'on':''}" ${run?'disabled':''} onclick="S.dur=${m};S.left=${m*60};draw()">${m} menit</button>`).join('')}</div>
+<div class="card ${run?'rec':''}"><div class="timer" id="tm">${fmt(S.left)}</div><div class="wave">${Array.from({length:21},(_,i)=>`<i style="animation-delay:${(i*70)%900}ms"></i>`).join('')}</div>
+<button class="mic ${run?'live':''}" aria-label="${run?'Selesai':'Mulai rekam'}" onclick="toggleRec()">${ic(run?'stop':'mic')}</button>
+<p style="text-align:center">${run?'Merekam suara Anda. Ketuk untuk selesai.':'Ketuk mikrofon untuk mulai berbicara.'}</p><p style="text-align:center;font-size:12px;margin-top:8px">Transkrip memakai pengenal suara browser, yang bisa memproses audio lewat penyedia browser Anda. Rekaman tidak disimpan setelah halaman ditutup.</p></div></main>${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+itv(){const qs=itv[S.itype],last=S.qi==qs.length-1;
+return `<main><div class="top"><button aria-label="Kembali" onclick="go(S.fromPlan?'day':'pick')">${ic('back')}</button><h2>Simulasi wawancara</h2></div>
+<div class="chips">${Object.keys(itv).map(k=>`<button class="chip ${S.itype==k?'on':''}" onclick="S.itype='${k}';S.qi=0;S.ans=[];draw()">${k}</button>`).join('')}</div>
+<div class="card"><div class="row sp"><p>Pertanyaan ${S.qi+1} dari ${qs.length}</p><div class="chip" style="padding:5px 10px">HRD</div></div>
+<div class="bar"><i style="width:${(S.qi+1)/qs.length*100}%"></i></div><div class="q" style="margin-top:16px">${qs[S.qi]}</div></div>
+<button class="chip" style="margin:-4px 0 14px" onclick="go('ask',{chat:[],ctx:itv[S.itype][S.qi],back:'itv',rec:false})">Tanya AI: tips menjawab ini</button>
+<div class="tabs" style="margin-top:0"><button class="${S.mode=='teks'?'on':''}" onclick="S.mode='teks';draw()">Teks</button><button class="${S.mode=='suara'?'on':''}" onclick="S.mode='suara';draw()">Suara</button></div>
+${S.mode=='teks'?`<textarea id="an" placeholder="Tulis jawaban Anda. Gunakan contoh nyata."></textarea>`:`<div class="card ${S.rec?'rec':''}"><div class="wave">${Array.from({length:21},(_,i)=>`<i style="animation-delay:${(i*70)%900}ms"></i>`).join('')}</div><button class="mic ${S.rec?'live':''}" aria-label="Rekam" onclick="voiceTog()">${ic(S.rec?'stop':'mic')}</button><p style="text-align:center">${S.rec?'Merekam. Ketuk untuk berhenti.':S.voice?'Jawaban terekam ('+S.voice+' detik).':'Ketuk untuk menjawab dengan suara.'}</p></div>`}
+<button class="btn" onclick="nextQ()">${last?'Selesai dan lihat hasil':'Pertanyaan berikutnya'}</button></main>${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+result(){const r=S.res,m=[['Kelancaran',r.f],['Artikulasi',r.a],['Intonasi',r.i],['Kepercayaan diri',r.c]];
+const low=m.slice().sort((a,b)=>a[1]-b[1])[0][0];
+const tip={'Kelancaran':'Kurangi jeda panjang dengan menyiapkan tiga poin utama sebelum bicara.','Artikulasi':'Ucapkan akhir kata dengan jelas dan perlambat tempo sedikit.','Intonasi':'Variasikan nada pada kalimat kunci agar tidak terdengar datar.','Kepercayaan diri':'Buka dengan kalimat yang sudah Anda hafal dan tarik napas sebelum mulai.'}[low];
+return `<main><div class="top"><button aria-label="Tutup" onclick="go('home')">${ic('back')}</button><h2>Hasil evaluasi</h2></div>
+<div class="card" style="text-align:center"><p>${r.t}</p><div class="ring" style="background:conic-gradient(var(--teal) ${r.sc*3.6}deg,var(--line) 0)"><div>${r.sc}</div></div>
+<h3>${r.sc>=80?'Sangat baik':r.sc>=65?'Cukup baik, terus tingkatkan':'Perlu lebih banyak latihan'}</h3></div>
+<div class="card">${m.map(x=>`<div style="margin-bottom:12px"><div class="row sp"><h3>${x[0]}${tag(r,x[0])}</h3><b>${x[1]}</b></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('').replace(/margin-bottom:12px(?![\s\S]*margin-bottom:12px)/,'margin-bottom:0')}</div>
+${r.src=='real'?realCard(r):`<div class="card" style="background:var(--soft);border:0"><p style="color:var(--ink)">Skor ini estimasi dari durasi atau panjang jawaban, bukan analisis suara. Mikrofon atau pengenal suara tidak tersedia, atau suara tidak terdengar. Coba Chrome atau Safari dan izinkan akses mikrofon.</p>${r.url?`<audio controls src="${r.url}" style="width:100%;margin-top:12px"></audio>`:''}</div>`}
+${(()=>{const s=m.slice().sort((a,b)=>a[1]-b[1]),w=s.slice(0,2),best=s[3];return `<h2 style="margin:6px 0 10px">Saran perbaikan</h2>${w.map(x=>`<div class="card" style="background:var(--soft);border:0"><div class="row sp"><h3>${x[0]}</h3><b>${x[1]}</b></div><p style="color:var(--ink);margin:6px 0 12px">${A[x[0]][1]}</p><button class="btn navy" style="padding:12px;font-size:14px" onclick="go('drill',{dk:'${A[x[0]][0]}',ti:0,dr:false,dd:false,dl:30,ck:0})">Latih ${A[x[0]][0].toLowerCase()}</button></div>`).join('')}${r.t.startsWith('Wawancara')?`<div class="card"><h3>Struktur jawaban wawancara</h3><p style="margin-top:6px">Susun jawaban dengan pola situasi, tugas, aksi, hasil. Sebut satu hasil nyata, misalnya angka atau dampak, di setiap jawaban.</p></div>`:''}<p style="margin-bottom:14px">Kekuatan Anda ada di ${best[0].toLowerCase()} (${best[1]}). Pertahankan dengan latihan rutin.</p>`})()}
+${S.fromPlan?`<button class="btn" onclick="go('day')">Lanjut ke refleksi</button>`:`<button class="btn" onclick="go('pick')">Latihan lagi</button>`}<button class="btn alt" style="margin-top:10px" onclick="go('eval')">Lihat riwayat</button></main>`},
+outline(){const o=S.ol,T=TPL[o.tpl];
+return `<main><div class="top"><button aria-label="Kembali" onclick="go(S.olBack||'pick')">${ic('back')}</button><h2>Kerangka bicara</h2></div>
+<p style="margin-bottom:14px">Pemula cenderung menghafal naskah, padahal satu kata yang lupa bisa meruntuhkan semuanya. Tulis kata kunci saja, lalu bicara dengan kata-kata Anda sendiri.</p>
+<h3>Topik</h3><select aria-label="Topik" onchange="S.topic=+this.value;draw()">${topics.map((t,i)=>`<option value="${i}" ${S.topic==i?'selected':''}>${t}</option>`).join('')}</select>
+<h3>Pola</h3><div class="chips">${Object.keys(TPL).map(k=>`<button class="chip ${o.tpl==k?'on':''}" onclick="S.ol.tpl='${k}';S.ol.v=[];draw()">${k}</button>`).join('')}</div>
+<p style="margin-bottom:14px">${T.d}</p>
+${T.f.map((f,i)=>`<label><h3 style="font-size:13px;margin-bottom:6px">${i+1}. ${f}</h3><input placeholder="Kata kunci saja" maxlength="60" value="${esc(o.v[i]||'')}" oninput="S.ol.v[${i}]=this.value"></label>`).join('')}
+<button class="btn" onclick="olGo()">Latih dengan kerangka ini</button></main>${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+path(){S.tab='home';const p=S.plan;
+if(!p)return `<main><div class="top"><button aria-label="Kembali" onclick="go('home')">${ic('back')}</button><h1 style="font-size:22px">Jalur 30 Hari</h1></div>
+<div class="hero"><h2>Dari nol, 10 menit sehari</h2><p style="margin-top:6px">Satu fokus per minggu. Tiap sesi: pemanasan 3 menit, latihan inti 5 menit, refleksi 2 menit.</p></div>
+${WK.map((w,i)=>`<div class="card row" style="padding:14px"><div class="ico" style="font-weight:800">${i+1}</div><div><h3>${w}</h3><p style="font-size:12px">${i<4?'Hari '+(i*7+1)+' sampai '+(i*7+7):'Hari 29 dan 30'}</p></div></div>`).join('')}
+<button class="btn" onclick="go('test',{retake:false})">Mulai tes awal</button></main>${nav()}`;
+const d=p.day,lg=Object.keys(p.log).map(Number).sort((a,b)=>a-b),last=lg.length?p.log[lg[lg.length-1]].pre:p.n0;
+const msg=last<p.n0?'Turun '+(p.n0-last)+' poin dari tes awal. Rasa gugup Anda mulai terkendali.':last==p.n0?'Belum berubah dari tes awal, wajar di tahap ini.':'Naik sedikit dari tes awal, wajar saat tantangan bertambah.';
+return `<main><div class="top"><button aria-label="Kembali" onclick="go('home')">${ic('back')}</button><h1 style="font-size:22px">Jalur 30 Hari</h1></div>
+<div class="hero"><p>${p.paused?'Dijeda, kemajuan Anda aman':d>30?'Selesai':'Minggu '+wk(d)+': '+WK[wk(d)-1]}</p><h1 style="margin:4px 0 12px">${d>30?'30 dari 30 hari':'Hari '+d+' dari 30'}</h1><div class="bar" style="background:#2A5A73"><i style="width:${lg.length/30*100}%"></i></div></div>
+${p.paused?`<button class="btn" style="margin-bottom:14px" onclick="planPause(false)">Lanjutkan jalur</button>`:d<=30?`<button class="btn" style="margin-bottom:14px" onclick="go('day')">Mulai sesi hari ${d}</button>`:''}
+${lg.length?`<div class="card"><h3>Tingkat gugup sebelum latihan</h3><div class="row" style="align-items:flex-end;height:90px;margin-top:12px;gap:4px">${lg.slice(-14).map(k=>`<div style="flex:1"><div style="height:${p.log[k].pre*8}px;background:var(--teal);border-radius:6px 6px 3px 3px"></div></div>`).join('')}</div><p style="margin-top:10px">Tes awal: ${p.n0}. Sesi terakhir: ${last}. ${msg}</p></div>`:''}
+${WK.map((w,wi)=>`<h2 style="margin:18px 0 8px">Minggu ${wi+1}: ${w}</h2>`+PL.map((t,i)=>[i+1,t]).filter(x=>wk(x[0])==wi+1).map(x=>`<div class="card row" style="padding:12px 14px;margin-bottom:8px;${x[0]==d?'border-color:var(--teal)':''}"><div class="ico" style="width:38px;height:38px;border-radius:12px;font-weight:800;font-size:13px">${x[0]}</div><div style="flex:1"><h3 style="font-weight:600">${x[1][0]}</h3></div><span class="mut" style="font-size:12px">${p.log[x[0]]?'Selesai':x[0]==d?'Hari ini':x[0]<d?'Dilewati':'Terkunci'}</span></div>`).join('')).join('')}
+<div class="card" style="margin-top:18px"><h3>Kelola jalur</h3><p style="margin:4px 0 12px">Ubah titik mulai atau berhenti sejenak tanpa kehilangan kemajuan.</p>${p.paused||d>30?'':`<button class="btn alt" onclick="planPause(true)">Jeda jalur</button>`}<button class="btn alt" style="margin-top:10px" onclick="go('test',{retake:true,t:{n:S.plan.n0,exp:-1}})">Ulangi tes awal</button>${S.cf?`<div style="background:var(--soft);border-radius:16px;padding:14px;margin-top:10px"><h3>Yakin mulai ulang?</h3><p style="color:var(--ink);margin:6px 0 12px">${lg.length} hari selesai dan catatan gugup akan dihapus dari jalur ini. Riwayat latihan dan kerangka tetap aman.</p><button class="btn navy" onclick="planReset(true)">Simpan ringkasan, lalu mulai ulang</button><button class="btn alt" style="margin-top:8px" onclick="planReset(false)">Mulai ulang tanpa menyimpan</button><button class="btn alt" style="margin-top:8px;border:0" onclick="S.cf=false;draw()">Batal</button></div>`:`<button class="btn alt" style="margin-top:10px" onclick="S.cf=true;draw()">Mulai ulang dari Hari 1</button>`}</div>
+${S.arch&&S.arch.length?`<div class="card"><h3>Jalur sebelumnya</h3>${S.arch.map(a=>`<p style="margin-top:6px">${a.n} hari selesai, gugup ${a.a} menjadi ${a.b}</p>`).join('')}</div>`:''}</main>${nav()}${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+test(){const t=S.t;
+return `<main><div class="top"><button aria-label="Kembali" onclick="go('path')">${ic('back')}</button><h2>Tes awal</h2></div><p style="margin-bottom:16px">Dua pertanyaan singkat agar jalur Anda pas. Tidak ada jawaban benar atau salah.</p>
+<div class="card"><h3>1. Seberapa gugup Anda berbicara di depan 10 orang?</h3><div class="timer" id="nv" style="font-size:40px">${t.n}</div><input type="range" min="1" max="10" value="${t.n}" aria-label="Tingkat gugup" oninput="S.t.n=+this.value;$('#nv').textContent=this.value"><div class="row sp"><p style="font-size:12px">1 santai</p><p style="font-size:12px">10 sangat gugup</p></div></div>
+<div class="card"><h3>2. Pengalaman Anda berbicara di depan umum</h3><div class="chips">${['Belum pernah','Sesekali','Cukup sering'].map((x,i)=>`<button class="chip ${t.exp==i?'on':''}" onclick="S.t.exp=${i};draw()">${x}</button>`).join('')}</div></div>
+<button class="btn" onclick="startPlan()">${S.retake?'Perbarui titik mulai':'Mulai jalur 30 hari'}</button></main>${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+day(){const p=S.plan;if(!p)return V.path();const d=p.day;if(d>30||p.paused)return V.path();const t=PL[d-1],c=S.cur,rest=t[1]=='r';
+const what=t[1]=='d'?'Latihan dasar: '+t[2]:t[1]=='s'?'Berbicara '+t[3]+' menit tentang: '+topics[t[2]]:t[1]=='i'?'Simulasi wawancara: '+t[2]:'Ulangi latihan favorit minggu ini selama 3 menit, atau dengarkan kembali rekaman Anda.';
+return `<main><div class="top"><button aria-label="Kembali" onclick="go('path')">${ic('back')}</button><div><p style="font-size:12px">Minggu ${wk(d)}: ${WK[wk(d)-1]}</p><h2>Hari ${d}: ${t[0]}</h2></div></div>
+<div class="card"><h3>1. Seberapa gugup Anda sekarang?</h3><div class="timer" id="pv" style="font-size:36px">${c.pre}</div><input type="range" min="1" max="10" value="${c.pre}" aria-label="Gugup sebelum latihan" oninput="S.cur.pre=+this.value;$('#pv').textContent=this.value"></div>
+<div class="card"><h3>2. Pemanasan, 3 menit</h3><p style="color:var(--ink);margin:6px 0 12px">Napas 4-2-6 sebanyak 5 putaran. Ucapkan “mama mimi mumu” 10 kali dengan bibir lentur. Baca satu kalimat pelan, lalu keras.</p><button class="chip ${c.w?'on':''}" onclick="S.cur.w=${c.w?0:1};draw()">${c.w?'Sudah selesai':'Tandai selesai'}</button></div>
+<div class="card"><h3>3. ${rest?'Hari ringan':'Latihan inti, 5 menit'}</h3><p style="color:var(--ink);margin:6px 0 12px">${what}</p>${rest?'':`<button class="btn ${S.core?'alt':''}" onclick="planGo()">${S.core?'Selesai. Ulangi bila perlu':'Mulai latihan inti'}</button>${t[1]=='s'?`<button class="btn alt" style="margin-top:10px" onclick="go('outline',{topic:${t[2]},olBack:'day'})">Buat kerangka dulu</button>`:''}`}</div>
+<div class="card"><h3>4. Refleksi, 2 menit</h3><p style="margin:4px 0">Seberapa gugup Anda setelah latihan?</p><div class="timer" id="qv" style="font-size:36px">${c.post}</div><input type="range" min="1" max="10" value="${c.post}" aria-label="Gugup setelah latihan" oninput="S.cur.post=+this.value;$('#qv').textContent=this.value"><p style="margin:12px 0 6px">Satu hal yang berhasil hari ini</p><input placeholder="Contoh: jeda saya lebih tenang" value="${esc(c.note)}" oninput="S.cur.note=this.value"></div>
+<button class="btn" onclick="planDone()">Selesaikan hari ${d}</button></main>${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+ask(){const c=S.chat||[],qs=S.ctx?CQ:QS;
+return `<main><div class="top"><button aria-label="Kembali" onclick="go(S.back||'pick')">${ic('back')}</button><div><h2>Tanya AI</h2><p style="font-size:12px">Pelatih wawancara Bicara.in</p></div></div>
+${S.ctx?`<div class="card" style="background:var(--soft);border:0;padding:12px 14px"><p style="font-size:12px">Pertanyaan yang sedang dilatih</p><h3 style="margin-top:2px">${esc(S.ctx)}</h3></div>`:''}
+<div class="bub ai">Halo! Saya bisa bantu strategi menjawab wawancara, contoh jawaban, dan cara mengatasi gugup. Pilih topik di bawah atau tulis pertanyaan Anda.</div>
+${c.length?'':`<div class="chips">${qs.map((q,i)=>`<button class="chip" onclick="ask(${S.ctx?'CQ':'QS'}[${i}])">${q}</button>`).join('')}</div>`}
+${c.map((m,i)=>m.role=='user'?`<div class="bub me">${esc(m.content)}</div>`:`<div class="bub ai" ${i==c.length-1?'id="last"':''}>${m.content?fmtA(m.content):'Menyusun jawaban...'}</div>`).join('')}</main>
+<div class="askbar"><input id="qi" placeholder="Tulis pertanyaan Anda" aria-label="Pertanyaan" onkeydown="if(event.key=='Enter')send()" ${S.busy?'disabled':''}><button class="btn" onclick="send()" ${S.busy?'disabled':''}>Kirim</button></div>`},
+drills(){S.tab='pick';
+return `<main><div class="top"><button aria-label="Kembali" onclick="go('pick')">${ic('back')}</button><h1 style="font-size:22px">Latihan dasar</h1></div><p style="margin-bottom:16px">Pilih satu keterampilan untuk dilatih.</p>
+${Object.keys(D).map(k=>`<button class="card row" style="width:100%;text-align:left" onclick="go('drill',{dk:'${k}',ti:0,dr:false,dd:false,dl:30,ck:0})"><div class="ico">${ic(D[k].i)}</div><div style="flex:1"><h3>${k}</h3><p>${D[k].d}</p></div>${ic('play')}</button>`).join('')}</main>${nav()}`},
+drill(){const d=D[S.dk],run=S.dr,n=d.txt.length;
+return `<main><div class="top"><button aria-label="Kembali" onclick="go(S.fromPlan?'day':'drills')">${ic('back')}</button><h2>${S.dk}</h2></div>
+<p style="margin-bottom:14px">${d.d}</p>
+<div class="card"><h3>Langkah latihan</h3>${d.steps.map((x,i)=>`<p style="color:var(--ink);margin-top:8px">${i+1}. ${x}</p>`).join('')}</div>
+<div class="card ${run?'rec':''}"><div class="row sp"><p>${d.lbl} ${S.ti+1} dari ${n}</p><button class="chip" onclick="S.ti=(S.ti+1)%${n};draw()">Ganti</button></div>
+<div class="q">${d.txt[S.ti]}</div>
+<div class="timer" id="dt" style="font-size:40px">${fmt(S.dl)}</div><div class="wave">${Array.from({length:21},(_,i)=>`<i style="animation-delay:${(i*70)%900}ms"></i>`).join('')}</div>
+<button class="mic ${run?'live':''}" aria-label="${run?'Selesai':'Mulai'}" onclick="dtoggle()">${ic(run?'stop':'mic')}</button>
+<p style="text-align:center">${run?'Sedang berlatih. Ketuk untuk selesai.':'Ketuk mikrofon, lalu bicara selama 30 detik.'}</p></div>
+${S.dd?`<div class="card"><h3>Bagaimana hasilnya?</h3><div class="chips">${[['Masih sulit',55],['Cukup lancar',72],['Sangat lancar',88]].map(x=>`<button class="chip ${S.ck==x[1]?'on':''}" onclick="S.ck=${x[1]};draw()">${x[0]}</button>`).join('')}</div><button class="btn" onclick="saveDrill()">Simpan latihan</button></div>`:''}
+<div class="card" style="background:var(--soft);border:0"><h3>Tips</h3><p style="color:var(--ink);margin-top:6px">${d.tip}</p></div></main>${S.toast?`<div class="toast">${S.toast}</div>`:''}`},
+eval(){return `<main><h1>Evaluasi</h1><p style="margin:6px 0 16px">Perkembangan kemampuan komunikasi Anda.</p>
+<div class="card"><div class="row sp"><h3>Skor 5 latihan terakhir</h3><b style="color:var(--teal)">${avg()} rata-rata</b></div>
+<div class="row" style="align-items:flex-end;height:110px;margin-top:14px;gap:10px">${S.hist.slice(0,5).reverse().map(h=>`<div style="flex:1;text-align:center"><div style="height:${h.sc}px;background:var(--teal);border-radius:9px 9px 4px 4px"></div><p style="font-size:11px">${h.sc}</p></div>`).join('')}</div></div>
+<h2 style="margin:18px 0 10px">Riwayat latihan</h2>
+${S.hist.map(h=>`<div class="card row"><div class="ico">${ic(h.k=='Wawancara'?'brief':'mic')}</div><div style="flex:1"><h3>${h.t}</h3><p>${h.k}, ${h.d}</p></div><b style="font-size:20px">${h.sc}</b></div>`).join('')}</main>${nav()}`},
+profile(){const n=S.hist.length;
+return `<main><div style="text-align:center;margin:6px 0 20px"><div class="ico" style="width:84px;height:84px;border-radius:50%;margin:auto;font-size:32px;font-weight:800">${S.name[0]}</div><h1 style="margin-top:12px">${S.name}</h1><p>rina@email.com</p></div>
+<div class="row" style="gap:10px;margin-bottom:14px">${[[n,'Latihan'],[avg(),'Rata-rata'],['4','Hari beruntun']].map(x=>`<div class="card" style="flex:1;margin:0;text-align:center"><h2>${x[0]}</h2><p style="font-size:12px">${x[1]}</p></div>`).join('')}</div>
+<div class="card"><h3>Target latihan</h3><p style="margin:4px 0 8px">3 sesi minggu ini</p><div class="bar"><i style="width:${Math.min(100,n/3*100)}%"></i></div></div>
+<div class="card"><h3 style="margin-bottom:12px">Pencapaian</h3><div class="row" style="gap:10px">${[['star','Pemula'],['flame','4 hari'],['mic','Pembicara']].map(x=>`<div style="flex:1;text-align:center"><div class="ico" style="margin:0 auto 6px">${ic(x[0])}</div><p style="font-size:12px">${x[1]}</p></div>`).join('')}</div></div>
+<button class="btn alt" onclick="go('auth')">Keluar</button></main>${nav()}`}
+};
+function draw(){$('#app').innerHTML=V[S.s]();if(S.s=='speak'&&S.rec)startTm()}
+function startTm(){clearInterval(tm);tm=setInterval(()=>{S.left--;const e=$('#tm');if(e)e.textContent=fmt(S.left);if(S.left<=0)finishSpeak()},1000)}
+const micMsg=()=>C.err=='NotAllowedError'||C.err=='SecurityError'?'Mikrofon diblokir. Izinkan di browser, atau halaman ini tidak diberi akses mikrofon. Memakai mode simulasi.':C.err=='NotFoundError'?'Mikrofon tidak ditemukan. Memakai mode simulasi.':'Perekaman tidak didukung di sini ('+(C.err||'tidak diketahui')+'). Memakai mode simulasi.';
+async function toggleRec(){if(S.rec){finishSpeak();return}await capStart();S.rec=true;if(C.mode=='sim')S.toast=micMsg();draw();if(S.toast)setTimeout(()=>{S.toast='';draw()},4500)}
+async function voiceTog(){if(S.rec){S.rec=false;const M=await capStop();S.voice=M&&M.dur?M.dur:rnd(40,90);S.vtext=M&&M.text?M.text:'';draw();return}await capStart();S.rec=true;if(C.mode=='sim')S.toast=micMsg();draw();if(S.toast)setTimeout(()=>{S.toast='';draw()},4500)}
+async function finishSpeak(){clearInterval(tm);const used=S.dur*60-S.left;S.rec=false;const M=await capStop();
+if(used<5){S.left=S.dur*60;toast('Terlalu singkat. Bicara minimal 5 detik.');return}
+const t='Pidato: '+topics[S.topic].split(' ').slice(0,3).join(' ');if(M&&M.src=='real')finishReal(t,'Public speaking',M);else finish(t,'Public speaking',Math.min(92,58+Math.round(used/(S.dur*60)*25)+rnd(0,9)),M)}
+const FS=['eee','ee','eh','em','emm','anu','kayak','gitu','hmm'];
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const cl=x=>Math.max(30,Math.min(98,Math.round(x)));
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const tag=(r,n)=>{const e=r.est?'simulasi':r.src=='real'&&(n=='Intonasi'||n=='Kepercayaan diri')?'estimasi':'';return e?` <span style="font-weight:500;font-size:12px;color:var(--mut)">${e}</span>`:''};
+let C=null;
+async function capStart(){C={t0:Date.now(),text:'',conf:[],gaps:[],last:0,rms:[],mode:'sim',chunks:[]};
+try{const st=await navigator.mediaDevices.getUserMedia({audio:true});C.st=st;C.mode='mic';
+const ac=new (window.AudioContext||window.webkitAudioContext)(),an=ac.createAnalyser();an.fftSize=1024;ac.createMediaStreamSource(st).connect(an);C.ac=ac;
+const buf=new Uint8Array(an.fftSize);
+C.iv=setInterval(()=>{an.getByteTimeDomainData(buf);let s=0;for(const v of buf)s+=(v-128)*(v-128);C.rms.push(Math.sqrt(s/buf.length)/128)},100);
+try{C.mr=new MediaRecorder(st);C.mr.ondataavailable=e=>C.chunks.push(e.data);C.mr.start()}catch(e){}
+}catch(e){C.err=(e&&e.name)||'Error'}
+if(SR&&C.mode=='mic'){try{const r=new SR();r.lang='id-ID';r.continuous=true;r.interimResults=true;
+r.onresult=e=>{const n=Date.now();if(C.last&&n-C.last>2000)C.gaps.push(n-C.last);C.last=n;
+for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal){C.text+=x[0].transcript+' ';if(x[0].confidence)C.conf.push(x[0].confidence)}}};
+r.onend=()=>{if(C&&C.on)try{r.start()}catch(e){}};
+C.sr=r;C.on=true;r.start()}catch(e){}}
+C.t0=Date.now()}
+function capStop(){return new Promise(res=>{const c=C;if(!c||c.mode!='mic'){res(null);return}c.on=false;clearInterval(c.iv);try{c.sr&&c.sr.stop()}catch(e){}
+const fin=()=>{c.st.getTracks().forEach(t=>t.stop());try{c.ac.close()}catch(e){}
+if(c.chunks.length)try{c.url=URL.createObjectURL(new Blob(c.chunks,{type:c.mr.mimeType}))}catch(e){}
+res(analyze(c))};
+if(c.mr&&c.mr.state!='inactive'){c.mr.onstop=()=>setTimeout(fin,300);c.mr.stop()}else setTimeout(fin,300)})}
+function capKill(){if(!C||!C.on&&!C.st)return;C.on=false;clearInterval(C.iv);try{C.sr&&C.sr.stop()}catch(e){}try{C.mr&&C.mr.state!='inactive'&&C.mr.stop()}catch(e){}C.st&&C.st.getTracks().forEach(t=>t.stop());try{C.ac&&C.ac.close()}catch(e){}}
+function analyze(c){const dur=Math.max(1,(Date.now()-c.t0)/1000),w=c.text.toLowerCase().match(/[a-z']+/g)||[],n=w.length;
+if(n<5)return{src:'est',url:c.url,dur:Math.round(dur)};
+const wpm=Math.round(n/(dur/60)),fill=w.filter(x=>FS.includes(x)).length,pau=c.gaps.length,fr=fill/n*100;
+const v=c.rms.filter(x=>x>0.02),mean=v.length?v.reduce((a,b)=>a+b,0)/v.length:0.05,sd=v.length?Math.sqrt(v.reduce((a,b)=>a+(b-mean)**2,0)/v.length):0.02;
+const ts=wpm>=110&&wpm<=160?92:Math.max(45,92-(wpm<110?110-wpm:wpm-160)*0.8);
+const conf=c.conf.length?c.conf.reduce((a,b)=>a+b,0)/c.conf.length:0.75;
+const f=cl(95-pau*5-fr*4-(92-ts)*0.4),a=cl(conf*100*0.9+8),i=cl(30+sd/mean*100),cc=cl(90-fr*3-pau*3+(mean>0.06?5:-8));
+return{src:'real',url:c.url,text:c.text.trim(),wpm,fill,pau,words:n,dur:Math.round(dur),f,a,i,c:cc,sc:Math.round((f+a+i+cc)/4)}}
+function finishReal(t,k,M){S.res=Object.assign({t},M);S.hist.unshift({t,k,sc:M.sc,d:'Baru saja'});go('result')}
+function realCard(r){const st=[[r.wpm,'kata per menit',r.wpm>=110&&r.wpm<=160?'Pas':r.wpm>160?'Terlalu cepat':'Terlalu lambat'],[r.fill,'kata isian',r.fill<=2?'Bersih':'Kurangi'],[r.pau,'jeda panjang',r.pau<=2?'Terkendali':'Banyak']];
+const z=r.wpm>160?['Tempo','Anda bicara '+r.wpm+' kata per menit. Targetnya 120 sampai 150.']:r.wpm<100?['Tempo','Tempo Anda '+r.wpm+' kata per menit, agak lambat. Targetnya 120 sampai 150.']:r.fill>=3?['Jeda dan napas','Ada '+r.fill+' kata isian. Ganti dengan jeda singkat.']:r.pau>=3?['Improvisasi','Ada '+r.pau+' jeda lebih dari 2 detik. Latih menyusun jawaban spontan.']:null;
+const tx=esc(r.text).split(/(\s+)/).map(x=>FS.includes(x.toLowerCase().replace(/[^a-z]/g,''))?`<mark style="background:var(--teal);color:#06303A;border-radius:4px;padding:0 3px">${x}</mark>`:x).join('');
+return `<div class="card"><h3>Data dari rekaman Anda</h3><div class="row" style="gap:8px;margin-top:12px">${st.map(x=>`<div style="flex:1;text-align:center;background:var(--soft);border-radius:14px;padding:12px 4px"><h2>${x[0]}</h2><p style="font-size:11px">${x[1]}</p><b style="font-size:12px;color:var(--teal)">${x[2]}</b></div>`).join('')}</div>${r.url?`<audio controls src="${r.url}" style="width:100%;margin-top:14px"></audio>`:''}<h3 style="margin-top:14px">Transkrip</h3><p style="color:var(--ink);margin-top:6px">${tx}</p><p style="margin-top:8px;font-size:12px">Pengenal suara sering menghilangkan bunyi seperti “eee”, jadi jumlah kata isian adalah batas minimum.</p></div>${z?`<div class="card" style="background:var(--soft);border:0"><h3>Temuan utama</h3><p style="color:var(--ink);margin:6px 0 12px">${z[1]}</p><button class="btn navy" style="padding:12px;font-size:14px" onclick="go('drill',{dk:'${z[0]}',ti:0,dr:false,dd:false,dl:30,ck:0})">Latih ${z[0].toLowerCase()}</button></div>`:''}`}
+const QS=['Cara menjawab “Ceritakan tentang diri Anda”','Tips menjawab kelemahan diri','Cara menjawab gaji yang diharapkan','Cara mengatasi gugup saat wawancara','Pertanyaan apa yang bisa saya ajukan ke HRD?','Cara menjawab “Mengapa kami harus memilih Anda?”'];
+const CQ=['Beri contoh jawaban yang bagus','Apa kesalahan umum untuk pertanyaan ini?','Bagaimana struktur jawabannya?'];
+const TIPS={[QS[0]]:'Gunakan pola sekarang, lalu, nanti. Sebut posisi atau studi Anda saat ini, satu pencapaian relevan, lalu alasan Anda tertarik pada posisi ini. Cukup 45 sampai 60 detik. Hindari menceritakan seluruh riwayat hidup.',[QS[1]]:'Pilih kelemahan nyata yang tidak krusial untuk posisi itu, lalu jelaskan langkah yang sedang Anda ambil untuk memperbaikinya. Hindari jawaban klise seperti “saya terlalu perfeksionis”.',[QS[2]]:'Riset kisaran gaji posisi serupa dulu. Sebut rentang, bukan satu angka, dan kaitkan dengan nilai yang Anda bawa. Anda juga boleh balik bertanya tentang rentang yang disiapkan perusahaan.',[QS[3]]:'Tarik napas 4 hitungan, buang 6 hitungan sebelum menjawab. Boleh meminta waktu sejenak untuk berpikir. Latih tiga jawaban utama keras-keras agar kalimat pembuka terasa otomatis.',[QS[4]]:'Tanyakan hal yang menunjukkan minat nyata: seperti apa keberhasilan di tiga bulan pertama, bagaimana tim bekerja sehari-hari, dan tantangan terbesar posisi ini. Hindari bertanya gaji atau cuti di awal.',[QS[5]]:'Hubungkan satu kebutuhan perusahaan dengan satu bukti dari pengalaman Anda. Pakai angka atau hasil nyata. Jangan membandingkan diri dengan pelamar lain.'};
+const INS='Kamu pelatih wawancara kerja di aplikasi Bicara.in untuk mahasiswa, fresh graduate, dan pencari kerja di Indonesia. Jawab dalam bahasa Indonesia yang hangat dan profesional, maksimal 160 kata, tanpa tanda pisah panjang. Format: (1) strategi singkat, (2) contoh jawaban 2 sampai 3 kalimat, (3) satu kesalahan yang perlu dihindari. Gunakan teks biasa dengan **tebal** seperlunya. Jika pertanyaan di luar wawancara, public speaking, atau komunikasi, arahkan kembali dengan sopan.';
+const fmtA=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+const scr=()=>{const m=$('main');if(m)m.scrollTop=m.scrollHeight};
+let SM;
+async function getSM(){if(SM!==undefined)return SM;try{SM=window.claude?await claude.use('sample'):null}catch(e){SM=null}return SM}
+function send(){const e=$('#qi');if(!e)return;const v=e.value;e.value='';ask(v)}
+async function ask(q){q=(q||'').trim();if(!q||S.busy)return;S.chat=S.chat||[];
+S.chat.push({role:'user',content:q});const a={role:'assistant',content:''};S.chat.push(a);S.busy=true;draw();scr();
+const sm=await getSM();
+if(!sm){a.content=TIPS[q]||'Fitur AI belum tersedia di tampilan ini. Buka halaman lewat tautan artifact dan izinkan akses AI. Sementara itu, pilih salah satu tips cepat.';S.busy=false;draw();scr();return}
+const h=S.chat.slice(0,-1).map(m=>({role:m.role,content:m.content}));
+h[0].content=INS+(S.ctx?'\nKonteks: pengguna sedang berlatih menjawab pertanyaan "'+S.ctx+'".':'')+'\n\nPertanyaan pengguna: '+h[0].content;
+try{const r=await sm(h,{modelTier:'quick',cache:false,onText:e=>{a.content=e.text;const el=$('#last');if(el){el.innerHTML=fmtA(a.content);scr()}}});a.content=r.text}
+catch(e){a.content=e&&e.code=='rate_limited'?'Terlalu banyak permintaan. Coba lagi sebentar lagi.':e&&e.code=='not_granted'?'Akses AI belum diizinkan. Izinkan saat diminta, lalu coba lagi.':'Maaf, jawaban belum bisa dimuat. Coba lagi.'}
+S.busy=false;draw();scr()}
+function olGo(){const o=S.ol,n=o.v.filter(x=>x&&x.trim()).length;if(n<2){toast('Isi minimal dua kata kunci.');return}
+const t=S.fromPlan&&S.plan&&PL[S.plan.day-1][1]=='s'?PL[S.plan.day-1][3]:S.dur;
+go('speak',{topic:S.topic,dur:t,left:t*60,rec:false,cat:'',useOl:true})}
+function save(){try{localStorage.setItem('bicara_v1',JSON.stringify({plan:S.plan,hist:S.hist,ol:S.ol,arch:S.arch}))}catch(e){}}
+function pathCard(){const p=S.plan,d=p?p.day:0;
+return `<button class="card row" style="width:100%;text-align:left;background:var(--navy);border:0;color:#fff" onclick="go('path')"><div class="ico" style="background:var(--teal);color:#06303A">${ic('flame')}</div><div style="flex:1"><h3>Jalur 30 Hari</h3><p style="color:#B9D3DD">${p?(p.paused?'Dijeda di hari '+d+', ketuk untuk melanjutkan':d>30?'Selesai. Lihat hasil Anda':'Hari '+d+' dari 30, lanjutkan sesi hari ini'):'Mulai dari nol, 10 menit sehari'}</p></div>${ic('play')}</button>`}
+function startPlan(){const t=S.t;if(t.exp<0){toast('Jawab kedua pertanyaan dulu.');return}
+const s=t.exp==2&&t.n<=5?8:1,p=S.plan;let d=s;if(S.retake&&p){while(p.log[d])d++;p.day=d;p.paused=false;if(!Object.keys(p.log).length)p.n0=t.n}else S.plan={day:s,n0:t.n,log:{}};S.retake=false;S.cur={pre:t.n,post:t.n,w:0,note:''};S.core=false;go('path');toast('Jalur diperbarui. Mulai dari hari '+d+'.')}
+function planPause(v){S.plan.paused=v;save();toast(v?'Jalur dijeda. Kemajuan Anda aman.':'Jalur dilanjutkan.')}
+function planReset(keep){const p=S.plan,lg=Object.keys(p.log).map(Number).sort((a,b)=>a-b);
+if(keep&&lg.length){S.arch=S.arch||[];S.arch.unshift({n:lg.length,a:p.log[lg[0]].pre,b:p.log[lg[lg.length-1]].pre})}
+const n0=lg.length?p.log[lg[lg.length-1]].pre:p.n0;S.plan={day:1,n0,log:{}};S.cur={pre:n0,post:n0,w:0,note:''};S.core=false;S.cf=false;go('path');toast('Jalur dimulai ulang dari Hari 1.')}
+function planGo(){const t=PL[S.plan.day-1],k=t[1];
+if(k=='d')go('drill',{dk:t[2],ti:0,dr:false,dd:false,dl:30,ck:0,fromPlan:true});
+else if(k=='s')go('speak',{topic:t[2],dur:t[3],left:t[3]*60,rec:false,cat:'',fromPlan:true});
+else go('itv',{itype:t[2],qi:0,ans:[],rec:false,fromPlan:true})}
+function planDone(){const p=S.plan,d=p.day,c=S.cur;if(PL[d-1][1]!='r'&&!S.core){toast('Selesaikan latihan inti dulu.');return}
+p.log[d]={pre:c.pre,post:c.post,note:c.note};do{p.day++}while(p.log[p.day]);S.core=false;S.cur={pre:c.post,post:c.post,w:0,note:''};S.fromPlan=false;go('path');toast('Hari '+d+' selesai. Bagus!')}
+function dtoggle(){if(S.dr){dstop();return}S.dr=true;S.dd=false;S.dl=30;draw();clearInterval(tm);tm=setInterval(()=>{S.dl--;const e=$('#dt');if(e)e.textContent=fmt(S.dl);if(S.dl<=0)dstop()},1000)}
+function dstop(){clearInterval(tm);S.dr=false;S.dd=true;S.dl=30;draw()}
+function saveDrill(){if(!S.ck){toast('Pilih penilaian Anda dulu.');return}S.hist.unshift({t:'Latihan '+S.dk.toLowerCase(),k:'Latihan dasar',sc:S.ck,d:'Baru saja'});S.dd=false;S.ck=0;if(S.fromPlan){S.core=true;go('day');return}toast('Latihan tersimpan')}
+function nextQ(){const qs=itv[S.itype];let t=S.mode=='teks'?($('#an')?$('#an').value.trim():''):(S.voice?(S.vtext||'ok '.repeat(25)):'');
+if(S.rec){toast('Hentikan rekaman dulu.');return}
+if(t.length<15){toast('Jawab dulu sebelum lanjut.');return}
+S.ans.push(t.length);S.voice=0;S.vtext='';
+if(S.qi<qs.length-1){S.qi++;draw()}else{const q=S.ans.reduce((a,b)=>a+Math.min(b,260),0)/S.ans.length/260;finish('Wawancara '+S.itype.toLowerCase(),'Wawancara',Math.min(94,55+Math.round(q*28)+rnd(0,8)))}}
+function finish(t,k,sc,m){const j=()=>Math.max(40,Math.min(98,sc+rnd(-9,9)));
+S.res={t,sc,f:j(),a:j(),i:j(),c:j(),est:true,url:m&&m.url};S.hist.unshift({t,k,sc,d:'Baru saja'});go('result')}
+try{const j=JSON.parse(localStorage.getItem('bicara_v1')||'null');if(j){S.plan=j.plan;if(j.hist)S.hist=j.hist;if(j.ol)S.ol=j.ol;if(j.arch)S.arch=j.arch}}catch(e){}
+draw();
+</script>
+</body>
+</html>
